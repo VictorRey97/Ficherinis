@@ -23,98 +23,138 @@ namespace PersonasGUI {
         }
 
     private:
+        // ==========================
+        //      ESTADO / FLAGS
+        // ==========================
+        bool sobrescribirArchivo = false;
 
-		bool sobrescribirArchivo = false; // Variable para controlar si se deben sobrescribir los datos existentes
-
-		// Controles de la interfaz
+        // ==========================
+        //      CONTROLES UI
+        // ==========================
         Label^ lblNombre;
         Label^ lblApellidoP;
         Label^ lblApellidoM;
         Label^ lblFecha;
         Label^ lblCurp;
         Label^ lblDomicilio;
-		// Campos de texto para ingresar los datos
+
         TextBox^ txtNombre;
         TextBox^ txtApellidoP;
         TextBox^ txtApellidoM;
         TextBox^ txtFecha;
         TextBox^ txtCurp;
         TextBox^ txtDomicilio;
-		// Botones para guardar y mostrar los datos
+
         Button^ btnGuardar;
         Button^ btnMostrar;
-		// Campo de texto para mostrar los datos almacenados
+
         TextBox^ txtMostrar;
 
-		void InitializeComponent() // Método para inicializar los componentes de la interfaz
+        // ==========================
+        //      UI SETUP
+        // ==========================
+        void InitializeComponent()
         {
+            // Ventana
             this->Text = "Registro de Personas";
             this->Size = Drawing::Size(600, 500);
+            this->BackColor = Color::FromArgb(48, 0, 80); // morado oscuro
 
+            // ===== Labels =====
             lblNombre = gcnew Label();
             lblNombre->Text = "Nombre(s)";
             lblNombre->Location = Point(20, 20);
-
-            txtNombre = gcnew TextBox();
-            txtNombre->Location = Point(150, 20);
-            txtNombre->Width = 200;
+            lblNombre->ForeColor = Color::White;
 
             lblApellidoP = gcnew Label();
             lblApellidoP->Text = "Apellido paterno";
             lblApellidoP->Location = Point(20, 60);
-
-            txtApellidoP = gcnew TextBox();
-            txtApellidoP->Location = Point(150, 60);
-            txtApellidoP->Width = 200;
+            lblApellidoP->ForeColor = Color::White;
 
             lblApellidoM = gcnew Label();
             lblApellidoM->Text = "Apellido materno";
             lblApellidoM->Location = Point(20, 100);
-
-            txtApellidoM = gcnew TextBox();
-            txtApellidoM->Location = Point(150, 100);
-            txtApellidoM->Width = 200;
+            lblApellidoM->ForeColor = Color::White;
 
             lblFecha = gcnew Label();
             lblFecha->Text = "Fecha nacimiento";
             lblFecha->Location = Point(20, 140);
-
-            txtFecha = gcnew TextBox();
-            txtFecha->Location = Point(150, 140);
-            txtFecha->Width = 200;
+            lblFecha->ForeColor = Color::White;
 
             lblCurp = gcnew Label();
             lblCurp->Text = "CURP";
             lblCurp->Location = Point(20, 180);
-
-            txtCurp = gcnew TextBox();
-            txtCurp->Location = Point(150, 180);
-            txtCurp->Width = 200;
+            lblCurp->ForeColor = Color::White;
 
             lblDomicilio = gcnew Label();
             lblDomicilio->Text = "Domicilio";
             lblDomicilio->Location = Point(20, 220);
+            lblDomicilio->ForeColor = Color::White;
+
+            // ===== TextBoxes =====
+            txtNombre = gcnew TextBox();
+            txtNombre->Location = Point(150, 20);
+            txtNombre->Width = 200;
+            txtNombre->BackColor = Color::Red;
+            txtNombre->ForeColor = Color::White;
+
+            txtApellidoP = gcnew TextBox();
+            txtApellidoP->Location = Point(150, 60);
+            txtApellidoP->Width = 200;
+            txtApellidoP->BackColor = Color::Red;
+            txtApellidoP->ForeColor = Color::White;
+
+            txtApellidoM = gcnew TextBox();
+            txtApellidoM->Location = Point(150, 100);
+            txtApellidoM->Width = 200;
+            txtApellidoM->BackColor = Color::Red;
+            txtApellidoM->ForeColor = Color::White;
+
+            txtFecha = gcnew TextBox();
+            txtFecha->Location = Point(150, 140);
+            txtFecha->Width = 200;
+            txtFecha->BackColor = Color::Red;
+            txtFecha->ForeColor = Color::White;
+
+            txtCurp = gcnew TextBox();
+            txtCurp->Location = Point(150, 180);
+            txtCurp->Width = 200;
+            txtCurp->BackColor = Color::Red;
+            txtCurp->ForeColor = Color::White;
 
             txtDomicilio = gcnew TextBox();
             txtDomicilio->Location = Point(150, 220);
             txtDomicilio->Width = 200;
+            txtDomicilio->BackColor = Color::Red;
+            txtDomicilio->ForeColor = Color::White;
 
+            // ===== Botones =====
             btnGuardar = gcnew Button();
             btnGuardar->Text = "Guardar persona";
             btnGuardar->Location = Point(20, 270);
+            btnGuardar->BackColor = Color::DarkViolet;
+            btnGuardar->ForeColor = Color::White;
+            btnGuardar->FlatStyle = FlatStyle::Flat;
             btnGuardar->Click += gcnew EventHandler(this, &MainForm::guardarPersonaGUI);
 
             btnMostrar = gcnew Button();
-            btnMostrar->Text = "Mostrar datos";
-            btnMostrar->Location = Point(200, 270);
+            btnMostrar->Text = "Registros anteriores";
+            btnMostrar->Location = Point(20, 310);
+            btnMostrar->BackColor = Color::DarkViolet;
+            btnMostrar->ForeColor = Color::White;
+            btnMostrar->FlatStyle = FlatStyle::Flat;
             btnMostrar->Click += gcnew EventHandler(this, &MainForm::mostrarDatos);
 
+            // ===== Output =====
             txtMostrar = gcnew TextBox();
             txtMostrar->Multiline = true;
             txtMostrar->ScrollBars = ScrollBars::Vertical;
-            txtMostrar->Location = Point(20, 320);
-            txtMostrar->Size = Drawing::Size(540, 120);
+            txtMostrar->Location = Point(20, 360);
+            txtMostrar->Size = Drawing::Size(540, 80);
+            txtMostrar->BackColor = Color::Red;
+            txtMostrar->ForeColor = Color::White;
 
+            // ===== Add Controls (reordenado) =====
             this->Controls->Add(lblNombre);
             this->Controls->Add(txtNombre);
 
@@ -138,44 +178,48 @@ namespace PersonasGUI {
             this->Controls->Add(txtMostrar);
         }
 
-		void verificarArchivo() // Método para verificar si el archivo ya contiene datos y controlar la opción de sobrescribir
+        // ==========================
+        //      LÓGICA DE ARCHIVO
+        // ==========================
+        void verificarArchivo()
         {
-            if (archivoTieneDatos())
+            if (!archivoTieneDatos())
+                return;
+
+            auto resultado = MessageBox::Show(
+                "El archivo ya contiene datos.\n¿Desea sobrescribirlos?",
+                "Archivo existente",
+                MessageBoxButtons::YesNo,
+                MessageBoxIcon::Question
+            );
+
+            if (resultado == System::Windows::Forms::DialogResult::Yes)
             {
-                auto resultado = MessageBox::Show(
-                    "El archivo ya contiene datos.\n¿Desea sobrescribirlos?",
-                    "Archivo existente",
-                    MessageBoxButtons::YesNo,
-                    MessageBoxIcon::Question
-                );
-
-                if (resultado == System::Windows::Forms::DialogResult::Yes)
-                {
-                    sobrescribirArchivo = true;
-                }
-                else
-                {
-                    sobrescribirArchivo = false;
-
-                    // Desactivar campos de captura
-                    txtNombre->Enabled = false;
-                    txtApellidoP->Enabled = false;
-                    txtApellidoM->Enabled = false;
-                    txtFecha->Enabled = false;
-                    txtCurp->Enabled = false;
-                    txtDomicilio->Enabled = false;
-
-                    btnGuardar->Enabled = false;
-
-                    MessageBox::Show("Solo podrá visualizar los datos almacenados.");
-                }
+                sobrescribirArchivo = true;
+                return;
             }
+
+            // No sobrescribir: bloquear captura y guardado
+            sobrescribirArchivo = false;
+
+            txtNombre->Enabled = false;
+            txtApellidoP->Enabled = false;
+            txtApellidoM->Enabled = false;
+            txtFecha->Enabled = false;
+            txtCurp->Enabled = false;
+            txtDomicilio->Enabled = false;
+
+            btnGuardar->Enabled = false;
+
+            MessageBox::Show("Solo podrá visualizar los datos almacenados.");
         }
 
-		void guardarPersonaGUI(Object^ sender, EventArgs^ e) // Método para guardar los datos de una persona ingresados en la interfaz, utilizando la función guardarPersona del archivo ArchivoPersonas.h
+        // ==========================
+        //      EVENTOS
+        // ==========================
+        void guardarPersonaGUI(Object^ sender, EventArgs^ e)
         {
             Persona p;
-
             p.nombres = msclr::interop::marshal_as<std::string>(txtNombre->Text);
             p.apellidoPaterno = msclr::interop::marshal_as<std::string>(txtApellidoP->Text);
             p.apellidoMaterno = msclr::interop::marshal_as<std::string>(txtApellidoM->Text);
@@ -185,17 +229,17 @@ namespace PersonasGUI {
 
             guardarPersona(p, sobrescribirArchivo);
 
+            // después de la 1ra escritura, ya no sobrescribe
             sobrescribirArchivo = false;
 
             MessageBox::Show("Datos guardados correctamente");
         }
 
-		void mostrarDatos(Object^ sender, EventArgs^ e) // Método para mostrar los datos almacenados en el archivo, utilizando la función leerPersonas del archivo ArchivoPersonas.h
+        void mostrarDatos(Object^ sender, EventArgs^ e)
         {
             txtMostrar->Clear();
 
             std::vector<std::string> datos = leerPersonas();
-
             for (auto& linea : datos)
             {
                 txtMostrar->AppendText(gcnew String(linea.c_str()));
